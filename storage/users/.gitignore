@@ -1,2 +1,4 @@
 *
+!passwd.json
+!shadow.json
 !.gitignore
