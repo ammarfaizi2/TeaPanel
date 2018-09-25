@@ -3,7 +3,6 @@
 require_once __DIR__."/../config/init.php";
 require_once BASEPATH."/bootstrap/init.php";
 require_once BASEPATH."/bootstrap/web_init.php";
-require_once BASEPATH."/";
 
 if (isset($_SESSION["login"])) {
 	header("Location: home.php?ref=login.php&w=".urlencode(rstr(32)));
@@ -24,7 +23,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 		is_string($_POST["username"]) &&
 		is_string($_POST["password"])
 	) {
-		
+		require BASEPATH."/src/sub_helpers/login_helpers.php";
+		try {
+			if (checkPassword($_POST["username"] = trim(strtolower($_POST["username"])), $_POST["password"])) {
+				$_SESSION["login"] = true;
+				$_SESSION["user"] = getPasswd($_POST["username"]);
+				header("Location: home.php");
+				exit(0);
+			} else {
+				$_SESSION["_alert"] = "Invalid username or password!";
+			}
+		} catch (\Exceptions\UserException $e) {
+			$_SESSION["_alert"] = $e->getMessage();
+		}
+	} else {
+		$_SESSION["_alert"] = "Invalid request";
 	}
 	header("Location: login.php?ref=login_error&w=".urlencode(rstr(32)));
 	exit(0);
@@ -33,11 +46,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 $token = rstr(64);
 $_SESSION["_token"] = $token;
 
+if (isset($_SESSION["_alert"])) {
+	$alert = $_SESSION["_alert"];
+	unset($_SESSION["_alert"]);
+}
+
 ?><!DOCTYPE html>
 <html>
 <head>
 	<title>Tea Panel Login</title>
 	<link rel="stylesheet" type="text/css" href="/css/login.css"/>
+<?php if (isset($alert)): ?>ss
+	<script type="text/javascript">alert("<?php print $alert; ?>");</script>
+<?php endif; ?>
 </head>
 <body>
 	<center>

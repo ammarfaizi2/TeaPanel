@@ -11,51 +11,83 @@ if (!function_exists("checkPassword")) {
 	 */
 	function checkPassword(string $username, string $password): bool
 	{
-		$passwdFile = STORAGE_PATH."/users/passwd.json";
-		$shadowFile = STORAGE_PATH."/users/shadow.json";
-
-		if (!file_exists($passwdFile)) {
+		if (!file_exists(PASSWD_FILE)) {
 			throw new UserException(
-				sprintf("File %s does not exist", $passwdFile)
+				sprintf("File %s does not exist", PASSWD_FILE)
 			);
 		}
 
-		if (!is_readable($passwdFile)) {
+		if (!is_readable(PASSWD_FILE)) {
 			throw new UserException(
-				sprintf("File %s is not readable", $passwdFile)
+				sprintf("File %s is not readable", PASSWD_FILE)
 			);
 		}
 
-		if (!file_exists($shadowFile)) {
+		if (!file_exists(SHADOW_FILE)) {
 			throw new UserException(
-				sprintf("File %s does not exist", $shadowFile)
+				sprintf("File %s does not exist", SHADOW_FILE)
 			);
 		}
 
-		if (!is_readable($shadowFile)) {
+		if (!is_readable(SHADOW_FILE)) {
 			throw new UserException(
-				sprintf("File %s is not readable", $shadowFile)
+				sprintf("File %s is not readable", SHADOW_FILE)
 			);
 		}
 
-		$passwd = json_decode(file_get_contents($passwdFile), true);
+		$passwd = json_decode(file_get_contents(PASSWD_FILE), true);
 		if (!is_array($passwd)) {
 			throw new UserException(
-				sprintf("Invalid passwd entry on file %s", $passwdFile)
+				sprintf("Invalid passwd entry on file %s", PASSWD_FILE)
 			);
 		}
 
-		$shadow = json_decode(file_get_contents($shadowFile), true);
+		$shadow = json_decode(file_get_contents(SHADOW_FILE), true);
 		if (!is_array($shadow)) {
 			throw new UserException(
-				sprintf("Invalid shadow entry on file %s", $shadowFile)
+				sprintf("Invalid shadow entry on file %s", SHADOW_FILE)
 			);
 		}
-
-		if (isset($passwd[$username]) && isset($shadow[$username])) {
+		
+		if (isset($passwd[$username], $shadow[$username])) {
 			return password_verify($password, $shadow[$username]);
 		}
 		
 		return false;
+	}
+}
+
+if (!function_exists("getPasswd")) {
+	/**
+	 * @param string $username
+	 * @throws \Exceptions\UserException
+	 * @return array
+	 */
+	function getPasswd(string $username): array
+	{
+		if (!file_exists(PASSWD_FILE)) {
+			throw new UserException(
+				sprintf("File %s does not exist", PASSWD_FILE)
+			);
+		}
+
+		if (!is_readable(PASSWD_FILE)) {
+			throw new UserException(
+				sprintf("File %s is not readable", PASSWD_FILE)
+			);
+		}
+
+		$passwd = json_decode(file_get_contents(PASSWD_FILE), true);
+		if (!is_array($passwd)) {
+			throw new UserException(
+				sprintf("Invalid passwd entry on file %s", PASSWD_FILE)
+			);
+		}
+
+		if (isset($passwd[$username])) {
+			return $passwd[$username];
+		}
+
+		return [];
 	}
 }
