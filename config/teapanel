@@ -1,0 +1,18 @@
+
+server {
+	listen 58870;
+	listen [::]:58870;
+
+	index index.php;
+	
+	root /opt/teapanel/public;
+	error_log  /opt/teapanel/logs/nginx.teapanel.error.log;
+	access_log /opt/teapanel/logs/nginx.teapanel.access.log;
+
+	error_page 404 /404.php;
+
+	location ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+		fastcgi_pass unix:/opt/teapanel/storage/run/php7.2-fpm.sock;
+	}
+}

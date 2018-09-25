@@ -2,11 +2,6 @@
 
 use Exceptions\UserException;
 
-/**
- * @author Ammar Faizi <ammarfaizi2@gmail.com> https://www.facebook.com/ammarfaizi2
- * @package \Exceptions
- */
-
 if (!function_exists("checkPassword")) {
 	/**
 	 * @param string $username
