@@ -56,7 +56,7 @@ if (isset($_SESSION["_alert"])) {
 <head>
 	<title>Tea Panel Login</title>
 	<link rel="stylesheet" type="text/css" href="/css/login.css"/>
-<?php if (isset($alert)): ?>ss
+<?php if (isset($alert)): ?>
 	<script type="text/javascript">alert("<?php print $alert; ?>");</script>
 <?php endif; ?>
 </head>

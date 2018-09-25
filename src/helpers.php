@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @author Ammar Faizi <ammarfaizi2@gmail.com> https://www.facebook.com/ammarfaizi2
+ * @package \Exceptions
+ */
+
 if (!function_exists("rstr")) {
 	/**
 	 * @param int    $n
@@ -9,7 +14,7 @@ if (!function_exists("rstr")) {
 	function rstr($n, $e = null): string
 	{
 		if (is_null($e)) {
-			$e = "1234567890qwertyuiopasdfghjklzxcvbnnmQWERTYUIIOPASDFGHJKKLZXCVBNM___---...";
+			$e = "1234567890qwertyuiopasdfghjklzxcvbnnmQWERTYUIOPASDFGHJKKLZXCVBNM___---...";
 		}
 		$r = "";
 		$c = strlen($e) - 1;

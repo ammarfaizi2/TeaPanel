@@ -1,10 +1,9 @@
 <?php
 
 require_once __DIR__."/../config/init.php";
-require_once __DIR__."/../bootstrap/init.php";
-require_once __DIR__."/../bootstrap/web_init.php";
+require_once BASEPATH."/bootstrap/init.php";
+require_once BASEPATH."/bootstrap/web_init.php";
 
-var_dump($_SESSION);die;
 
 ?><!DOCTYPE html>
 <html>

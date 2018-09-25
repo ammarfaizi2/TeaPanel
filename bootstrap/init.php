@@ -24,5 +24,7 @@ if (!defined("INIT")) {
 		}
 	}
 
+	spl_autoload_register("iceteaInternalAutoloader");
+
 	require BASEPATH."/src/helpers.php";
 }
