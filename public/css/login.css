@@ -1,0 +1,12 @@
+* {
+	font-family: Arial;
+}
+.mcg {
+	margin-top: 100px;
+	border: 1px solid #000;
+	width: 400px;
+	height: 300px;
+}
+.incg {
+	margin-top: 15px;
+}
