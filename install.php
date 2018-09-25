@@ -6,6 +6,7 @@ require BASEPATH."/config/install.php";
 require BASEPATH."/src/sub_helpers/cli_helpers.php";
 
 chdir(__DIR__);
+set_include_path(__DIR__);
 
 if (trim(shell_exec("whoami")) !== "root") {
 	printf("You need to run this command as root!\n");
