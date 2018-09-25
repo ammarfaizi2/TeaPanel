@@ -1,0 +1,14 @@
+{
+    "name": "amamrfaizi2/teapanel",
+    "description": "Tea Panel",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ammar Faizi",
+            "email": "ammarfaizi2@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
